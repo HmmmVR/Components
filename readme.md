@@ -7,12 +7,15 @@
 The roadmap is based on which component or utlity depends on what
 
 - Utilities
+	- Debug
 	- Loader
+	- WebServer
 	- Storage
 	- Container
 	- Event
 
 - Components
+	- Logger
 	- Console
 	- Generator
 	- Validator
