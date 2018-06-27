@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	backupGlobals="false"
+	backupStaticAttributes="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	processIsolation="false"
+	stopOnFailure="false"
+	>
+	<!-- bootstrap="" TODO: make bootstrap file -->
+
+	<!-- Test directory components -->
+	<testsuite name="Component">
+		<directory suffix="Test.php">./tests/Unit/Component</directory>
+	</testsuite>
+
+	<!-- Test directory utilities -->
+	<testsuite name="Util">
+		<directory suffix="Test.php">./tests/Unit/Util</directory>
+	</testsuite>
+
+	<!-- Test directory workflow -->
+	<testsuite name="Workflow">
+		<directory suffix="Test.php">./tests/Unit/Workflow</directory>
+	</testsuite>
+
+</phpunit>
