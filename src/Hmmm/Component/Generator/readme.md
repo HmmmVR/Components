@@ -1,0 +1,3 @@
+# Generator
+
+Easily build classes
