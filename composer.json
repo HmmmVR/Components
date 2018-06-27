@@ -1,0 +1,13 @@
+{
+    "name": "hmmm/components",
+    "description": "Hmmms framework for PHP components",
+    "type": "framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kobus",
+            "email": "dev.kobus@gmail.com"
+        }
+    ],
+    "require": {}
+}
