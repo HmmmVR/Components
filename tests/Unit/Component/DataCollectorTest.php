@@ -11,28 +11,36 @@ class DataCollectorTest extends TestCase
 	public function testCreateCollection()
 	{
 		$collector = new DataCollector();
-		$this->assertSame($collector->getCollection(), []);
+		$final = $collector->getCollection();
+
+		$this->assertSame($final, []);
 	}
 
 	public function testGetCollection()
 	{
 		$collector = new DataCollector();
 		$collector->addItem("test", true);
-		$this->assertSame($collector->getCollection(), ["test" => true]);
+		$final = $collector->getCollection();
+
+		$this->assertSame($final, ["test" => true]);
 	}
 
 	public function testAddToCollection()
 	{
 		$collector = new DataCollector();
 		$collector->addItem("test", [1,2,3]);
-		$this->assertSame($collector->getItem("test"), [1,2,3]);
+		$final = $collector->getItem("test");
+
+		$this->assertSame($final, [1,2,3]);
 	}
 
 	public function testGetItemFromCollection()
 	{
 		$collector = new DataCollector();
 		$collector->addItem("test", [1,2,3]);
-		$this->assertSame($collector->getItem("test"), [1,2,3]);
+		$final = $collector->getItem("test");
+
+		$this->assertSame($final, [1,2,3]);
 	}
 
 	public function testEditItemFromCollection()
@@ -40,7 +48,9 @@ class DataCollectorTest extends TestCase
 		$collector = new DataCollector();
 		$collector->addItem("test", [1,2,3]);
 		$collector->editItem("test", [4,5,6]);
-		$this->assertSame($collector->getItem("test"), [4,5,6]);
+		$final = $collector->getItem("test");
+
+		$this->assertSame($final, [4,5,6]);
 	}
 
 	/**
@@ -58,7 +68,9 @@ class DataCollectorTest extends TestCase
 	{
 		$collector = new DataCollector();
 		$collector->appendItem("test");
-		$this->assertSame($collector->getItem(0), "test");
+		$final = $collector->getItem(0);
+
+		$this->assertSame($final, "test");
 	}
 
 	public function testInitializeAdapter()
@@ -70,8 +82,43 @@ class DataCollectorTest extends TestCase
 
 	public function testPredefinedTypeCheck()
 	{
-		$adapter = new Predefined(['test' => 'string']);
+		$adapter = new Predefined(["test" => "string"]);
 		$collector = new DataCollector($adapter);
+		$collector->addItem("test", "test data");
+		$final = $collector->getItem("test");
+
+		$this->assertSame($final, "test data");
+	}
+
+	/**
+	 * @expectedException Exception
+	 */
+	public function testPredefinedTypeCheckWrong()
+	{
+		$adapter = new Predefined(["test" => "string"]);
+		$collector = new DataCollector($adapter);
+		$collector->addItem("test", 1);
+	}
+
+	public function testPredefinedEdit()
+	{
+		$adapter = new Predefined(["test" => "int"]);
+		$collector = new DataCollector($adapter);
+		$collector->addItem("test", 1);
+		$collector->editItem("test", 2);
+		$final = $collector->getItem("test");
+
+		$this->assertSame($final, 2);
+	}
+
+	public function testPredefinedList()
+	{
+		$adapter = new Predefined("string");
+		$collector = new DataCollector($adapter);
+		$collector->appendItem("test data");
+		$final = $collector->getItem(0);
+
+		$this->assertSame($final, "test data");
 	}
 
 }

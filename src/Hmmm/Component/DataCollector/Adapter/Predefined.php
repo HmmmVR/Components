@@ -34,11 +34,6 @@ class Predefined implements AdapterInterface
 	 */
 	public function __construct($schema)
 	{
-		if (!$schema)
-		{
-			throw new Exception("Schema is wrong type");
-		}
-
 		if (is_string($schema))
 		{
 			$this->isList = true;
