@@ -12,5 +12,15 @@
     "require": {},
     "require-dev": {
         "phpunit/phpunit": "^6.5"
-    }
+    },
+	"autoload": {
+        "psr-4" : {
+			"Hmmm\\" : "src/Hmmm"
+		}
+    },
+	"scripts": {
+		"test:e2e": "./vendor/bin/phpunit",
+		"test:component": "./vendor/bin/phpunit --testsuite Component",
+		"test:workflow": "./vendor/bin/phpunit --testsuite Workflow"
+	}
 }

@@ -2,23 +2,18 @@
 <phpunit
 	backupGlobals="false"
 	backupStaticAttributes="false"
-	colors="true"
+	colors="always"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	processIsolation="false"
 	stopOnFailure="false"
+	bootstrap="tests/bootstrap.php"
 	>
-	<!-- bootstrap="" TODO: make bootstrap file -->
 
 	<!-- Test directory components -->
 	<testsuite name="Component">
 		<directory suffix="Test.php">./tests/Unit/Component</directory>
-	</testsuite>
-
-	<!-- Test directory utilities -->
-	<testsuite name="Util">
-		<directory suffix="Test.php">./tests/Unit/Util</directory>
 	</testsuite>
 
 	<!-- Test directory workflow -->

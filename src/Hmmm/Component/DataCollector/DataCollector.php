@@ -1,12 +1,11 @@
 <?php
 
-namespace Hmmm\Util\DataCollector;
+namespace Hmmm\Component\DataCollector;
 
 use \Exception;
-use \Hmmm\Util\DataCollector\AdapterInterface;
-use \Hmmm\Util\DataCollector\DataCollectorInterface;
+use \Hmmm\Component\DataCollector\AdapterInterface;
 
-class DataCollector implements DataCollectorInterface
+class DataCollector
 {
 
 	/**
@@ -17,12 +16,12 @@ class DataCollector implements DataCollectorInterface
 
 	/**
 	 * Custom adapter
-	 * @var object \Hmmm\Util\DataCollector\AdapterInterface
+	 * @var object \Hmmm\Component\DataCollector\AdapterInterface
 	 */
 	private $adapter;
 
 	/**
-	 * @param object \Hmmm\Util\DataCollector\AdapterInterface
+	 * @param object \Hmmm\Component\DataCollector\AdapterInterface
 	 * @return self
 	 */
 	public function __construct(AdapterInterface $adapter = null)
@@ -58,11 +57,11 @@ class DataCollector implements DataCollectorInterface
 	 * @param string key
 	 * @return mixed
 	 */
-	public function getItem(string $key)
+	public function getItem($key)
 	{
-		if ($this->adapter != null && method_exists($this->adapter, 'getItem'))
+		if (!isset($this->collection[$key]))
 		{
-			return $this->adapter->getItem($key);
+			throw new Exception("Key {$key} does not exist");
 		}
 
 		return $this->collection[$key];
@@ -74,7 +73,7 @@ class DataCollector implements DataCollectorInterface
 	 * @param mixed data
 	 * @return self
 	 */
-	public function addItem(string $key, mixed $data)
+	public function addItem($key, $data)
 	{
 		if (isset($this->collection[$key]))
 		{
@@ -83,7 +82,7 @@ class DataCollector implements DataCollectorInterface
 
 		if ($this->adapter != null && method_exists($this->adapter, 'addItem'))
 		{
-			$this->adapter->addItem($key, $data);
+			$this->collection[$key] = $this->adapter->addItem($key, $data);
 		}
 		else
 		{
@@ -99,7 +98,7 @@ class DataCollector implements DataCollectorInterface
 	 * @param mixed data
 	 * @return self
 	 */
-	public function editItem(string $key, mixed $data)
+	public function editItem($key, $data)
 	{
 		if (!isset($this->collection[$key]))
 		{
@@ -108,7 +107,7 @@ class DataCollector implements DataCollectorInterface
 
 		if ($this->adapter != null && method_exists($this->adapter, 'editItem'))
 		{
-			$this->adapter->editItem($key, $data);
+			$this->collection[$key] = $this->adapter->editItem($key, $data);
 		}
 		else
 		{
@@ -123,25 +122,18 @@ class DataCollector implements DataCollectorInterface
 	 * @param string key
 	 * @return mixed data
 	 */
-	public function removeItem(string $key)
+	public function removeItem($key)
 	{
 		if (!isset($this->collection[$key]))
 		{
 			throw new Exception("Key {$key} does not exist");
 		}
 
-		if ($this->adapter != null && method_exists($this->adapter, 'removeItem'))
+		unset($this->collection[$key]);
+
+		if (!is_numeric($key))
 		{
-			$this->adapter->removeItem($key);
-		}
-		else
-		{
-			unset($this->collection[$key]);
-			
-			if (is_numeric($key))
-			{
-				$this->collection = array_values($this->collection);
-			}
+			$this->collection = array_values($this->collection);
 		}
 
 		return $this;
@@ -152,11 +144,11 @@ class DataCollector implements DataCollectorInterface
 	 * @param mixed data
 	 * @return self
 	 */
-	public function appendItem(mixed $data)
+	public function appendItem($data)
 	{
 		if ($this->adapter != null && method_exists($this->adapter, 'appendItem'))
 		{
-			$this->adapter->appendItem($data);
+			$this->collection[] = $this->adapter->appendItem($data);
 		}
 		else
 		{
