@@ -35,6 +35,15 @@ class DataCollector
 	}
 
 	/**
+	 * Get adapter
+	 * @return object \Hmmm\Component\DataCollector\AdapterInterface
+	 */
+	public function getAdapter()
+	{
+		return $this->adapter;
+	}
+
+	/**
 	 * Get raw collection
 	 * @return array
 	 */

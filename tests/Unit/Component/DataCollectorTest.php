@@ -2,6 +2,8 @@
 
 use \PHPUnit\Framework\TestCase;
 use \Hmmm\Component\DataCollector\DataCollector;
+use \Hmmm\Component\DataCollector\AdapterInterface;
+use \Hmmm\Component\DataCollector\Adapter\Predefined;
 
 class DataCollectorTest extends TestCase
 {
@@ -57,6 +59,19 @@ class DataCollectorTest extends TestCase
 		$collector = new DataCollector();
 		$collector->appendItem("test");
 		$this->assertSame($collector->getItem(0), "test");
+	}
+
+	public function testInitializeAdapter()
+	{
+		$adapter = new Predefined([]);
+		$collector = new DataCollector($adapter);
+		$this->assertTrue(($adapter instanceof \Hmmm\Component\DataCollector\Adapter\Predefined));
+	}
+
+	public function testPredefinedTypeCheck()
+	{
+		$adapter = new Predefined(['test' => 'string']);
+		$collector = new DataCollector($adapter);
 	}
 
 }
