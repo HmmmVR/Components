@@ -49,7 +49,7 @@ class Predefined implements AdapterInterface
 	 * @param string type name
 	 * @param callable check function
 	 * @return self
-	 */
+	 */	
 	public function addType($name, $callback)
 	{
 		$this->types[$name] = $callback;
@@ -68,6 +68,8 @@ class Predefined implements AdapterInterface
 		$this->types['array'] = function ($v) { return is_array($v); };
 		$this->types['object'] = function ($v) { return is_object($v); };
 		$this->types['numeric'] = function ($v) { return is_numeric($v); };
+		$this->types['callable'] = function ($v) { return is_callable($v); };
+		$this->types['float'] = function ($v) { return is_float($v); };
 		$this->types['alphabetic'] = function ($v) { return (preg_match("/^[a-z]+$/m", strtolower($v)) === 1); };
 		$this->types['alphanumeric'] = function ($v) { return (preg_match("/^[a-z]+$/m", strtolower($v)) === 1); };
 
