@@ -121,4 +121,31 @@ class DataCollectorTest extends TestCase
 		$this->assertSame($final, "test data");
 	}
 
+	public function testCustomType()
+	{
+		$adapter = new Predefined(["test" => "testType"]);
+		$adapter->addType("testType", function ($v) {
+			return $v === "test";
+		});
+		$collector = new DataCollector($adapter);
+		$collector->addItem("test", "test");
+		$final = $collector->getItem("test");
+		
+		$this->assertSame($final, "test");
+	}
+
+	/**
+	 * @expectedException Exception
+	 */
+	public function testCustomTypeFail()
+	{
+		$adapter = new Predefined(["test" => "testType"]);
+		$adapter->addType("testType", function ($v) {
+			return $v === "test";
+		});
+		$collector = new DataCollector($adapter);
+		$collector->addItem("test", "something different");
+		$final = $collector->getItem("test");
+	}
+
 }
