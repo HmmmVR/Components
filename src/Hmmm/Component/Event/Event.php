@@ -11,7 +11,7 @@ class Event
 	 * Event name
 	 * @var string
 	 */
-	public $name;
+	private $name;
 
 	/**
 	 * DataCollector
@@ -40,6 +40,14 @@ class Event
 		$this->name = $name;
 		$adapter = new Predefined("callable");
 		$this->collector = new DataCollector($adapter);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
 	}
 
 	/**
