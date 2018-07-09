@@ -27,15 +27,15 @@ use \Hmmm\Component\Pattern\Pipeline;
 
 $pipeline = new Pipeline();
 
-$pipeline->addPipe(function ($data){
+$pipeline->pipe(function ($data){
 	return $data += 1;
 });
 
-$pipeline->addPipe(function ($data){
+$pipeline->pipe(function ($data){
 	return $data += 1;
 });
 
-$pipeline->addPipe(function ($data){
+$pipeline->pipe(function ($data){
 	return $data += 1;
 });
 

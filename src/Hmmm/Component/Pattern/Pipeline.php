@@ -36,7 +36,7 @@ class Pipeline
 	 * @param callable pipe
 	 * @return self
 	 */
-	public function addPipe(callable $pipe)
+	public function pipe(callable $pipe)
 	{
 		$this->pipes[] = $pipe;
 		return $this;

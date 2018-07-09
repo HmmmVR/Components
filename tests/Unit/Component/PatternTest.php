@@ -21,15 +21,15 @@ class PatternTest extends TestCase
 		$data = 0;
 		$pipeline = new Pipeline();
 		
-		$pipeline->addPipe(function ($data){
+		$pipeline->pipe(function ($data){
 			return $data += 1;
 		});
 
-		$pipeline->addPipe(function ($data){
+		$pipeline->pipe(function ($data){
 			return $data += 1;
 		});
 
-		$pipeline->addPipe(function ($data){
+		$pipeline->pipe(function ($data){
 			return $data += 1;
 		});
 
