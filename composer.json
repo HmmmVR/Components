@@ -20,6 +20,11 @@
 			"Hmmm\\" : "src/Hmmm"
 		}
     },
+	"autoload-dev": {
+		"psr-4": {
+			"TestData\\": "tests/TestData"
+		}
+	},
 	"scripts": {
 		"test:e2e": "./vendor/bin/phpunit",
 		"test:component": "./vendor/bin/phpunit --testsuite Component",
